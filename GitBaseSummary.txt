@@ -1,0 +1,28 @@
+Git & GitHub 핵심 요점 정리
+1. Git 시작하기
+최초 1회 git config로 이름/이메일 설정
+
+2. 필수 명령어 (로컬 작업)
+git init : 현재 폴더를 로컬 저장소로 만듦
+git add : 파일을 추적 대상으로 등록 (인덱싱)
+git status : 현재 상태(추적 안 된 파일 등) 확인
+git commit -m "메시지" : 변경사항 기록
+git log : 커밋 기록 확인
+
+3. GitHub 연동 (리모트 저장소)
+GitHub 가입 → 새 저장소 생성
+git clone <주소> : 리모트 코드를 로컬로 복사
+git push : 로컬 → 리모트로 올리기 (⚠️ 잊지 말기!)
+git pull : 리모트 → 로컬로 동기화
+
+4. 커밋 메시지 컨벤션
+일관된 커밋 메시지를 작성하는 것이 좋아요. 자주 쓰는 접두사:
+feat : 새 기능 추가
+fix : 버그 수정
+docs : 문서 수정
+refactor : 리팩토링
+chore : 빌드/패키지 관련
+
+5. 되돌리기
+  git reset --hard                    # 현재 시점으로 리셋
+  git reset --hard <commit id>   # 특정 시점으로 리셋
