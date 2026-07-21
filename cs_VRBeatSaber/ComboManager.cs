@@ -163,16 +163,14 @@ public class ComboManager : MonoBehaviour
             if (gameOverPanel2 != null)
                 gameOverPanel2.SetActive(true);
 
-            if (finalComboText != null)
-            {
-                finalComboText.text = "COMBO : " + combo;
-            }
-            Note[] remainingNotes = FindObjectsByType<Note>(FindObjectsSortMode.None);
-            foreach (Note note in remainingNotes)
-            {
-                Destroy(note.gameObject);
-            }
+              // 모든 사바의 GameEnd() 호출
+    Saber[] sabers =
+        FindObjectsByType<Saber>(FindObjectsSortMode.None);
 
+    foreach (Saber saber in sabers)
+    {
+        saber.GameEnd();
+    }
             Time.timeScale = 0f; // 게임 일시정지
 
             // 2. 씬에 있는 모든 음악(노래)을 강제로 일시정지합니다.
@@ -211,5 +209,5 @@ public class ComboManager : MonoBehaviour
         }
     }
 
-   
+
 }

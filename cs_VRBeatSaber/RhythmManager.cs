@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class RhythmManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class RhythmManager : MonoBehaviour
     public TMP_Text countdownText;
     public bool countdownDone = false; // 카운트다운 완료 여부
     public System.Action OnMusicEnd;
+    private float noteTimelineStartMusicTime;
 
     private void Awake()
     {
@@ -22,14 +24,25 @@ public class RhythmManager : MonoBehaviour
             return;
         }
     }
-
+/*
     void Start()
     {
         PlayMusic();
         StartCoroutine(CountdownAndPlayMusic());
         //StartCoroutine(CountdownAndPlayMusic());
     }
-    
+    */
+
+void Start()
+{
+    musicSource.time = 0f;
+    musicSource.Play();
+
+    StartCoroutine(CountdownAndPlayMusic());
+}
+
+
+
     System.Collections.IEnumerator CountdownAndPlayMusic()
     {
         // yield return new WaitForSeconds(1f); // 일시 대기 (프레임/지정 시간 후 재개)
@@ -49,8 +62,10 @@ public class RhythmManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         if (countdownText != null)
-            countdownText.text = "";  // 사라지기
-        countdownDone = true; // 카운트다운 완료 플래그 설정
+        countdownText.text = "";
+
+        noteTimelineStartMusicTime = musicSource.time;
+        countdownDone = true;
     }
 
     
@@ -67,5 +82,16 @@ public class RhythmManager : MonoBehaviour
             return musicSource.time;
         }
         return 0f;
+    }
+
+    public float GetCurrentNoteTime()
+    {
+        if (!countdownDone || musicSource == null)
+            return 0f;
+
+        return Mathf.Max(
+            0f,
+            musicSource.time - noteTimelineStartMusicTime
+        );
     }
 }

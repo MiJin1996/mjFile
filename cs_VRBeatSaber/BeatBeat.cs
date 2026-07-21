@@ -25,8 +25,9 @@ public class BeatBeat : MonoBehaviour
     void Update()
     {
         if (rhythmManager == null) return;
+        if (!rhythmManager.countdownDone) return;
 
-        float currentTime = rhythmManager.GetCurrentMusicTime();
+        float currentTime = rhythmManager.GetCurrentNoteTime();
 
         // 핵심 공식: (도착시간 - 현재시간) * 속도 = 판정선까지 남은 거리
         float distance = (targetTime - currentTime) * noteSpeed;
